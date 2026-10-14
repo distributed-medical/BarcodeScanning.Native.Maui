@@ -158,7 +158,13 @@ internal class CameraManager : IDisposable
                 _captureSession.RemoveInput(_captureInput);
 
             _captureInput?.Dispose();
+            /* 
+             * Do not dispose _captureDevice: AVCaptureDevice instances are shared singletons
+             * managed by the runtime registry. Disposing one invalidates the managed wrapper
+             * for every other component in the app that uses the same camera.
+             
             _captureDevice?.Dispose();
+            */
             _rotationCoordinator?.Dispose();
 
             _captureDevice = newDevice;
@@ -364,7 +370,16 @@ internal class CameraManager : IDisposable
                 _captureInput?.Dispose();
 
                 _barcodeAnalyzer?.Dispose();
+
+                /* 
+                 * Do not dispose _captureDevice: AVCaptureDevice instances are shared singletons
+                 * managed by the runtime registry. Disposing one invalidates the managed wrapper
+                 * for every other component in the app that uses the same camera.
+
                 _captureDevice?.Dispose();
+                */
+                _captureDevice = null;
+
                 _rotationCoordinator?.Dispose();
                 _uITapGestureRecognizer?.Dispose();
                 _subjectAreaChangedNotificaion?.Dispose();
