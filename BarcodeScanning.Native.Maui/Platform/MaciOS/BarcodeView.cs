@@ -23,7 +23,7 @@ public class BarcodeView : UIView
 
             if (OperatingSystem.IsIOSVersionAtLeast(17))
             {
-                var angle = _cameraManager?.RotationCoordinator?.VideoRotationAngleForHorizonLevelPreview ?? 0;
+                var angle = _cameraManager?.RotationCoordinator?.VideoRotationAngleForHorizonLevelPreview ?? 90; // Since we always have portrait mode
                 if (connection.IsVideoRotationAngleSupported(angle))
                     connection.VideoRotationAngle = angle;
             }
